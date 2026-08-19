@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Gift } from "lucide-react";
+import { Gift, Menu } from "lucide-react";
 import { motion } from "framer-motion";
+
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const links = [
   {
@@ -21,7 +23,6 @@ const links = [
     name: "Dashboard",
     href: "/dashboard",
   },
-
   {
     name: "Winner",
     href: "/winner",
@@ -34,9 +35,9 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="relative lg:sticky lg:top-0 z-50 w-full border-b border-slate-100 bg-white/90 backdrop-blur-md"
+      className="relative z-50 w-full border-b border-slate-100 bg-white/90 backdrop-blur-md lg:sticky lg:top-0"
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-3">
           <motion.div
             whileHover={{
@@ -49,11 +50,13 @@ export default function Navbar() {
           </motion.div>
 
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+            <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
               GiveFlow
             </h1>
 
-            <p className="text-xs text-slate-500">Smart giveaway management</p>
+            <p className="hidden text-xs text-slate-500 sm:block">
+              Smart giveaway management
+            </p>
           </div>
         </Link>
 
@@ -69,12 +72,42 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="hidden md:block">
           <Link href="/dashboard">
             <button className="rounded-2xl bg-linear-to-r from-violet-600 to-purple-700 px-6 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-0.5">
               Start Giveaway
             </button>
           </Link>
+        </div>
+
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <button className="rounded-2xl border border-slate-200 p-3">
+                <Menu className="h-6 w-6" />
+              </button>
+            </SheetTrigger>
+
+            <SheetContent side="right" className="w-full p-8">
+              <div className="mt-12 flex flex-col gap-4">
+                {links.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="rounded-2xl border border-slate-100 p-4 text-lg font-medium text-slate-700 transition hover:bg-violet-50 hover:text-violet-600"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+
+                <Link href="/dashboard">
+                  <button className="mt-4 w-full rounded-2xl bg-linear-to-r from-violet-600 to-purple-700 py-4 font-semibold text-white">
+                    Start Giveaway
+                  </button>
+                </Link>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </motion.header>

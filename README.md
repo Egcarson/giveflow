@@ -110,7 +110,7 @@ Optimized for:
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/giveflow.git
+git clone https://github.com/Egcarson/giveflow.git
 ```
 
 ### Navigate to the project directory
